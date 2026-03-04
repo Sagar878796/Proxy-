@@ -25,12 +25,13 @@ app.get("/proxy", async (req, res) => {
 
             const baseUrl = targetUrl.substring(0, targetUrl.lastIndexOf("/") + 1);
 
-            data = data.replace(/(.*\.m3u8|.*\.ts)/g, (match) => {
-                let absoluteUrl = match.startsWith("http")
-                    ? match
-                    : baseUrl + match;
+            data = data.replace(/(http.*\.m3u8|http.*\.ts|.*\.m3u8|.*\.ts)/g, (match) => {
+    let absoluteUrl = match.startsWith("http")
+        ? match
+        : baseUrl + match;
 
-                return `/proxy?url=${encodeURIComponent(absoluteUrl)}`;
+    return `/proxy?url=${encodeURIComponent(absoluteUrl)}`;
+});
             });
 
             res.setHeader("Content-Type", "application/vnd.apple.mpegurl");
